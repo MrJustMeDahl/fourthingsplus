@@ -14,6 +14,11 @@
 
     <jsp:body>
 
+        <h1>Itemlist</h1>
+        <c:forEach var="item" items="${requestScope.itemlist}">
+            ${item.name} - ${item.created} <br/>
+        </c:forEach>
+
         <p>You should be logged in now</p>
 
         <c:if test="${sessionScope.user != null}">
