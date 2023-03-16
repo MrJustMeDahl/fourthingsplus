@@ -36,18 +36,28 @@
                                     <button type="submit" formaction="edittask" formmethod="get" value="${item.itemID}"
                                             name="itemid" class="btn btn-outline-warning btn-sm">Edit
                                     </button>
+                                    <button type="submit" formaction="deletetask" formmethod="post" name="deletetask"
+                                            value="${item.itemID}" class="btn btn-outline-danger btn-sm">Remove
+                                    </button>
                                 </td>
                             </tr>
                         </c:when>
                         <c:otherwise>
                             <tr>
-                                <td><input type="text" id="editedTask" name ="editedTask" class="form-control w-25 d-inline" placeholder="${item.name}"/></td>
-                                <td><button type="submit" formaction="edittask" formmethod="post" value="${item.itemID}" name="itemid" class="btn btn-outline-primary btn-sm">Save changes</button> </td>
+                                <td><input type="text" id="editedTask" name="editedTask"
+                                           class="form-control d-inline" placeholder="${item.name}"/></td>
+                                <td>
+                                    <button type="submit" formaction="edittask" formmethod="post" value="${item.itemID}"
+                                            name="itemid" class="btn btn-outline-primary btn-sm">Save changes
+                                    </button>
+                                </td>
                                 <td>
                                     <button type="submit" formaction="completetask" formmethod="post"
                                             value="${item.itemID}" name="itemid" class="btn btn-outline-success btn-sm">
                                         Done
                                     </button>
+                                    <button type="submit" formaction="deletetask" formmethod="post" name="deletetask"
+                                            value="${item.itemID}" class="btn btn-outline-danger btn-sm">Remove</button>
                                 </td>
                             </tr>
                         </c:otherwise>

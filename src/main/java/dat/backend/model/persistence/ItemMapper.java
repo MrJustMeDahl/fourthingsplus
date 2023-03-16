@@ -152,7 +152,25 @@ class ItemMapper {
         }
         catch (SQLException ex)
         {
-            throw new DatabaseException(ex, "Could not move task from done to doing");
+            throw new DatabaseException(ex, "Could not update name of task");
+        }
+    }
+
+    public static void removeTask(ConnectionPool connectionPool, int itemID, User user) throws DatabaseException{
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "DELETE FROM fourthingsplus.item WHERE item_id = ? AND username = ?;";
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, itemID);
+                ps.setString(2, user.getUsername());
+                ps.executeUpdate();
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Could not remove task");
         }
     }
 }

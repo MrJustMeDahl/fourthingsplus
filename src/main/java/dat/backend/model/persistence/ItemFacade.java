@@ -35,4 +35,8 @@ public class ItemFacade {
     public static void updateItemName(ConnectionPool connectionPool, int itemID, String itemName) throws DatabaseException{
         ItemMapper.updateItemName(connectionPool, itemID, itemName);
     }
+
+    public static void removeTask(ConnectionPool connectionPool, int itemID, User user) throws DatabaseException{
+        ItemMapper.removeTask(connectionPool, itemID, user);
+    }
 }
