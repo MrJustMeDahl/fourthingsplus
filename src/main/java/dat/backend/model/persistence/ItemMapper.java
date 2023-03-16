@@ -137,4 +137,22 @@ class ItemMapper {
             throw new DatabaseException(ex, "Could not move task from done to doing");
         }
     }
+
+    public static void updateItemName(ConnectionPool connectionPool, int itemID, String itemName) throws DatabaseException{
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "UPDATE fourthingsplus.item SET name = ? WHERE item_id = ?;";
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setString(1, itemName);
+                ps.setInt(2, itemID);
+                ps.executeUpdate();
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Could not move task from done to doing");
+        }
+    }
 }

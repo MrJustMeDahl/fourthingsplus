@@ -17,17 +17,41 @@
             <div>
                 <input type="text" id="newItem" class="form-control w-50 d-inline" name="newItem"
                        placeholder="Enter new todo"/>
-                <button formaction="additem" formmethod="post" type="submit" class="btn btn-outline-success ml-20 align-top">Add</button>
+                <button formaction="additem" formmethod="post" type="submit"
+                        class="btn btn-outline-success ml-20 align-top">Add
+                </button>
             </div>
             <table class="table table-striped mt-4">
                 <c:forEach var="item" items="${requestScope.itemlist}">
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>${item.created}</td>
-                        <td>
-                            <button type="submit" formaction="completetask" formmethod="post" value="${item.itemID}" name="itemid" class="btn btn-outline-success btn-sm">Done</button>
-                        </td>
-                    </tr>
+                    <c:choose>
+                        <c:when test="${item.itemID != requestScope.currentTask}">
+                            <tr>
+                                <td>${item.name}</td>
+                                <td>${item.created}</td>
+                                <td>
+                                    <button type="submit" formaction="completetask" formmethod="post"
+                                            value="${item.itemID}" name="itemid" class="btn btn-outline-success btn-sm">
+                                        Done
+                                    </button>
+                                    <button type="submit" formaction="edittask" formmethod="get" value="${item.itemID}"
+                                            name="itemid" class="btn btn-outline-warning btn-sm">Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <tr>
+                                <td><input type="text" id="editedTask" name ="editedTask" class="form-control w-25 d-inline" placeholder="${item.name}"/></td>
+                                <td><button type="submit" formaction="edittask" formmethod="post" value="${item.itemID}" name="itemid" class="btn btn-outline-primary btn-sm">Save changes</button> </td>
+                                <td>
+                                    <button type="submit" formaction="completetask" formmethod="post"
+                                            value="${item.itemID}" name="itemid" class="btn btn-outline-success btn-sm">
+                                        Done
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </table>
         </form>
@@ -39,7 +63,9 @@
                         <td>${item.name}</td>
                         <td>${item.created}</td>
                         <td>
-                            <button type="submit" formaction="undotask" formmethod="post" value="${item.itemID}" name="itemid" class="btn btn-outline-danger btn-sm">Undo</button>
+                            <button type="submit" formaction="undotask" formmethod="post" value="${item.itemID}"
+                                    name="itemid" class="btn btn-outline-danger btn-sm">Undo
+                            </button>
                         </td>
                     </tr>
                 </c:forEach>
