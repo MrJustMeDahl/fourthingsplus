@@ -41,11 +41,13 @@ public class EditTask extends HttpServlet {
         User currentUser = (User) request.getSession().getAttribute("user");
         String itemName = request.getParameter("editedTask");
         int itemID = Integer.parseInt(request.getParameter("itemid"));
-        try {
-            ItemFacade.updateItemName(connectionPool, itemID, itemName);
-        } catch (DatabaseException e){
-            request.setAttribute("errormessage", e);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+        if(!itemName.equals("")) {
+            try {
+                ItemFacade.updateItemName(connectionPool, itemID, itemName);
+            } catch (DatabaseException e) {
+                request.setAttribute("errormessage", e);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         }
         request.setAttribute("itemlist", ItemFacade.getDoingForUser(connectionPool, currentUser));
         request.setAttribute("donelist", ItemFacade.getDoneForUser(connectionPool, currentUser));
